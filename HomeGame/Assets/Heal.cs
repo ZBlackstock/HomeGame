@@ -24,13 +24,14 @@ public class Heal : MonoBehaviour
 
             // Perform our on-collision action (damage the player)
             player.HealPlayer(50);
+            print("AAAAAAAAAA");
             Kill();
         }                       
 
         void Kill()
         {
             // This will destroy the gameObject that this script is attached to
-            Destroy(gameObject,1);
+            Destroy(gameObject);
         }
     }
 }
