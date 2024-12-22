@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
+    private bool doubleJump;
+
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 24f;
@@ -28,9 +30,19 @@ public class PlayerMovement : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (IsGrounded() && !Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            doubleJump = true;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded() || doubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+
+                doubleJump = !doubleJump;
+            }
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
