@@ -21,36 +21,40 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
 
+
     private void Update()
     {
         if (isDashing)
         {
+            print("Dashin");
             return;
         }
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (IsGrounded() && !Input.GetButtonDown("Jump"))
+        if (IsGrounded() && !Input.GetButton("Jump"))
         {
-            doubleJump = true;
+            doubleJump = false;
         }
 
         if (Input.GetButtonDown("Jump"))
         {
+            print("jump 1");
             if (IsGrounded() || doubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
 
                 doubleJump = !doubleJump;
+                print("jump 2");
             }
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && canDash)
+        if (Input.GetButtonDown("Fire1") && canDash)
         {
             StartCoroutine(Dash());
         }
