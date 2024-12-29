@@ -322,6 +322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3227977300861139716, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 964123931}
     - target: {fileID: 4885949030692587950, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -389,6 +393,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -470,6 +475,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47ed7429b79c6344888f8fe1c03c2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 964123931}
+  offset: {x: 0, y: 1, z: -5}
+  speed: 5
 --- !u!1 &964123922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1823503527205258370, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
@@ -588,6 +608,11 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!4 &964123931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6756701322398068023, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+  m_PrefabInstance: {fileID: 486168043}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1068803190
 PrefabInstance:
   m_ObjectHideFlags: 0
