@@ -26,31 +26,8 @@ public class PlayerScript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         print(collision.gameObject.tag);
-        /*switch (collision.gameObject.tag)
-        {
-            //remember to make the walls an actual collision using the moveInput values
-            case "Floor":
-                isGrounded = true;
-                ;
-
-                break;
-
-            case "RWall":
-                ;
-
-                break;
-
-            case "LWall":
-                ;
-
-                break;
-
-            case "Roof":
-                ;
-
-                break;
-
-        }*/
+        
+        
     }
 }
 

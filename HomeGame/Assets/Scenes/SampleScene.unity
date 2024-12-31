@@ -314,6 +314,18 @@ PrefabInstance:
       propertyPath: tr
       value: 
       objectReference: {fileID: 964123923}
+    - target: {fileID: -8451327862292685100, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: doubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8451327862292685100, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: dashingTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8451327862292685100, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: dashingPower
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 1615025978747406765, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
       propertyPath: m_Enabled
       value: 1
