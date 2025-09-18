@@ -5,10 +5,10 @@ public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
     [SerializeField] private float speed = 8f;
-    [SerializeField] private float jumpingPower = 16f;
-    private bool isFacingRight = true;
+    //[SerializeField] private float jumpingPower = 16f;
+    [SerializeField] private bool isFacingRight = true;
 
-    [SerializeField]private bool doubleJump;
+    //[SerializeField]private bool doubleJump;
 
     private bool canDash = true;
     private bool isDashing;
@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
 
+    [SerializeField] private Animator anim;
+
 
     private void Update()
     {
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (IsGrounded() && !Input.GetButton("Jump"))
+        /*if (IsGrounded() && !Input.GetButton("Jump"))
         {
             doubleJump = false;
         }
@@ -54,9 +56,36 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f * Time.deltaTime);
         }
 
-        if (Input.GetButtonDown("Fire1") && canDash)
+        if (Input.GetButtonUp("Jump"))
+        {
+            anim.SetBool("isJumping", true);
+        }
+        else
+        {
+            anim.SetBool("isJumping", false);
+        }*/
+
+            if (Input.GetButtonDown("Fire2") && canDash)
         {
             StartCoroutine(Dash());
+        }
+
+        if (horizontal >= 0.1f || horizontal <= -0.1f)
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else   
+        { 
+            anim.SetBool("isRunning", false);
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            anim.SetBool("isAttacking",true);
+        }
+        else
+        {
+            anim.SetBool("isAttacking",false);
         }
 
         Flip();

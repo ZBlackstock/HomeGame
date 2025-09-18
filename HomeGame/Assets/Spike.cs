@@ -23,7 +23,7 @@ public class Hazard : MonoBehaviour
             // Which means this object is indeed the player
 
             // Perform our on-collision action (damage the player)
-            player.DamagePlayer(10);
+            player.DamagePlayer(50);
         }
     }
 }
