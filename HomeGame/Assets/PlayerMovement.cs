@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -22,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrailRenderer tr;
 
     [SerializeField] private Animator anim;
+
+    public GameObject attackPoint;
+    public float radius;
+    public LayerMask enemies;
 
 
     private void Update()
@@ -65,7 +70,9 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isJumping", false);
         }*/
 
-            if (Input.GetButtonDown("Fire2") && canDash)
+        
+
+        if (Input.GetButtonDown("Fire2") && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -83,12 +90,28 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isAttacking",true);
         }
-        else
-        {
-            anim.SetBool("isAttacking",false);
-        }
 
         Flip();
+    }
+     
+    public void attack()
+        {
+            Collider2D[] enemy = Physics2D.OverlapCircleAll(attackPoint.transform.position, radius, enemies);
+
+            foreach (Collider2D enemyGameObject in enemy)
+            {
+                Debug.Log("hit enemy");
+            }
+        }
+
+    public void endAttack()
+    {
+        anim.SetBool("isAttacking", false);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(attackPoint.transform.position, radius);
     }
 
     private void FixedUpdate()
