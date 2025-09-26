@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
     [SerializeField] private float speed = 8f;
-    //[SerializeField] private float jumpingPower = 16f;
+    [SerializeField] private float jumpingPower = 16f;
     [SerializeField] private bool isFacingRight = true;
 
     //[SerializeField]private bool doubleJump;
@@ -18,8 +18,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashingCooldown = 1f;
 
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
+    //[SerializeField] private Transform groundCheck;
+    //[SerializeField] private LayerMask groundLayer;
+
+    bool isGrounded = false;
+
     [SerializeField] private TrailRenderer tr;
 
     [SerializeField] private Animator anim;
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject attackPoint;
     public float radius;
     public LayerMask enemies;
+    public float damage;
 
 
     private void Update()
@@ -39,19 +43,20 @@ public class PlayerMovement : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        /*if (IsGrounded() && !Input.GetButton("Jump"))
+        /*if (isGrounded && !Input.GetButton("Jump"))
         {
             doubleJump = false;
-        }
+        }*/
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             print("jump 1");
-            if (IsGrounded() || doubleJump)
+            if (isGrounded /*|| doubleJump*/)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-
-                doubleJump = !doubleJump;
+                isGrounded = false;
+                anim.SetBool("isJumping", true);
+                //doubleJump = !doubleJump;
                 print("jump 2");
             }
         }
@@ -60,15 +65,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f * Time.deltaTime);
         }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            anim.SetBool("isJumping", true);
-        }
-        else
-        {
-            anim.SetBool("isJumping", false);
-        }*/
 
         
 
@@ -93,7 +89,13 @@ public class PlayerMovement : MonoBehaviour
 
         Flip();
     }
-     
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        isGrounded = true;
+        anim.SetBool("isJumping", !isGrounded);
+    }
+
     public void attack()
         {
             Collider2D[] enemy = Physics2D.OverlapCircleAll(attackPoint.transform.position, radius, enemies);
@@ -101,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
             foreach (Collider2D enemyGameObject in enemy)
             {
                 Debug.Log("hit enemy");
+                enemyGameObject.GetComponent<enemyHealth>().health -= damage;
             }
         }
 
@@ -122,12 +125,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+        anim.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
+        anim.SetFloat("yVelocity", rb.velocity.y);
+
     }
 
-    private bool IsGrounded()
+    /*private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
+    }      */
 
     private void Flip()
     {
@@ -144,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        anim.SetBool("isDashing", true);
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -152,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         tr.emitting = false;
         rb.gravityScale = originalGravity;
         isDashing = false;
+        anim.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
