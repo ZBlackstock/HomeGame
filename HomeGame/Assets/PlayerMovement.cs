@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpingPower = 16f;
     [SerializeField] private bool isFacingRight = true;
 
-    //[SerializeField]private bool doubleJump;
+    [SerializeField]private bool doubleJump;
 
     private bool canDash = true;
     private bool isDashing;
@@ -18,8 +18,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashingCooldown = 1f;
 
     [SerializeField] private Rigidbody2D rb;
-    //[SerializeField] private Transform groundCheck;
-    //[SerializeField] private LayerMask groundLayer;
 
     bool isGrounded = false;
 
@@ -43,20 +41,20 @@ public class PlayerMovement : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        /*if (isGrounded && !Input.GetButton("Jump"))
+        if (isGrounded && !Input.GetButton("Jump"))
         {
             doubleJump = false;
-        }*/
+        }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             print("jump 1");
-            if (isGrounded /*|| doubleJump*/)
+            if (isGrounded || doubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 isGrounded = false;
                 anim.SetBool("isJumping", true);
-                //doubleJump = !doubleJump;
+                doubleJump = !doubleJump;
                 print("jump 2");
             }
         }
@@ -94,8 +92,12 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = true;
         anim.SetBool("isJumping", !isGrounded);
-    }
 
+        if (collision.CompareTag("spike"))
+        {
+            anim.SetTrigger("Attacked");
+        }
+    }
     public void attack()
         {
             Collider2D[] enemy = Physics2D.OverlapCircleAll(attackPoint.transform.position, radius, enemies);
@@ -130,11 +132,6 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("yVelocity", rb.velocity.y);
 
     }
-
-    /*private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }      */
 
     private void Flip()
     {
