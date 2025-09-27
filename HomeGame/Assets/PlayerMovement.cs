@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     public float radius;
     public LayerMask enemies;
     public float damage;
+    public Health health;
+
+    public bool isDead;
 
 
     private void Update()
@@ -97,6 +100,11 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("Attacked");
         }
+    }
+
+    public void die()
+    {
+
     }
     public void attack()
         {
