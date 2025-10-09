@@ -21,7 +21,7 @@ public class enemyHealth : MonoBehaviour
         if (health < currentHealth)
         {
             currentHealth = health;
-            
+            anim.SetTrigger("Attacked");
 
         }
         if (health <= 0)

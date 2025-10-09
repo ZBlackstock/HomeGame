@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,26 +8,20 @@ public class Health : MonoBehaviour
     public int maxHealth = 100;
     public HealthBar healthBar;
     private Animator anim;
+    public static event Action OnPlayerDeath;
     void Start()
     {
         curHealth = maxHealth;
-    }
-    void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DamagePlayer(10);
-        }*/
-
-        /*if (Input.GetKeyDown(KeyCode.L))
-        {
-            HealPlayer(10);
-        }*/
     }
     public void DamagePlayer(int damage)
     {
         curHealth -= damage;
         healthBar.SetHealth(curHealth);
+
+        if (curHealth <= 0)
+        {
+            OnPlayerDeath.Invoke();
+        }
     }
 
     public void HealPlayer(int damage)

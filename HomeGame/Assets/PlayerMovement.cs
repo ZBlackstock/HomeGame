@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("spike"))
         {
             anim.SetTrigger("Attacked");
+            Debug.Log("ow");
         }
     }
     public void attack()
