@@ -473,7 +473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &310214692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1135,9 +1135,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7663589494638867716, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 568145507008798173, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+    - target: {fileID: 7663589494638867716, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 336034727}
+    - target: {fileID: 7663589494638867716, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}
+      propertyPath: OnPlayerDead
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4885949030692587950, guid: 99d4ef1c43cb4eb40a1cd8bc4cbdbc9c, type: 3}

@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
-    [SerializeField] private Animator anim;
+    public Animator anim;
 
     public GameObject attackPoint;
     public float radius;
