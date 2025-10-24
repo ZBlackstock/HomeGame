@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
+    private Animator anim;
     // Built-in Unity function for handling collisions
     // This function will be called when another object bumps 
     // into the one this script is attached to
@@ -23,7 +24,8 @@ public class Hazard : MonoBehaviour
             // Which means this object is indeed the player
 
             // Perform our on-collision action (damage the player)
-            player.DamagePlayer(10);
+            player.DamagePlayer(20);
+            
         }
     }
 }
