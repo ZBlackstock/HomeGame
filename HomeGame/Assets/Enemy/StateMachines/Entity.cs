@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
 
-    public FiniteStateMachine statemachine;
+    public FiniteStateMachine stateMachine;
 
     public D_Entity entityData;
     public Rigidbody2D rb { get; private set; }
-    public Animator anim {  get; private set; }
-    public GameObject aliveGO {  get; private set; }
+    public Animator anim { get; private set; }
+    public GameObject aliveGO { get; private set; }
 
-    public int FacingDirection {  get; private set; }
+    public int FacingDirection { get; private set; }
 
     private Vector2 velocityWorkspace;
 
@@ -28,20 +26,20 @@ public class Entity : MonoBehaviour
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
 
-        statemachine = new FiniteStateMachine();
+        stateMachine = new FiniteStateMachine();
     }
 
     public virtual void update()
     {
-        statemachine.currentState.LogicUpdate();
+        stateMachine.currentState.LogicUpdate();
     }
 
     public virtual void FixedUpdate()
     {
-        statemachine.currentState.PhysicsUpdate();
+        stateMachine.currentState.PhysicsUpdate();
     }
 
-    public virtual void SetVelocity (float velocity)
+    public virtual void SetVelocity(float velocity)
     {
         velocityWorkspace.Set(FacingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
