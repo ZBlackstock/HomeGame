@@ -9,7 +9,7 @@ public class MoveState : EnemyState
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
-    public MoveState(FiniteStateMachine statemachine, Entity entity, string animBoolName, D_MoveState stateData) : base(statemachine, entity, animBoolName)
+    public MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
     }

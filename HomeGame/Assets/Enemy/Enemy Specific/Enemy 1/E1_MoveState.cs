@@ -6,7 +6,7 @@ public class E1_MoveState : MoveState
 {
 
     private Enemy1 enemy;
-    public E1_MoveState(FiniteStateMachine statemachine, Entity entity, string animBoolName, D_MoveState stateData, Enemy1 enemy) : base(statemachine, entity, animBoolName, stateData)
+    public E1_MoveState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_MoveState stateData, Enemy1 enemy) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -28,7 +28,7 @@ public class E1_MoveState : MoveState
         if (isDetectingWall || !isDetectingLedge)
         {
             enemy.idleState.setFlipAfterIdle(true);
-            statemachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.idleState);
         }
     }
 

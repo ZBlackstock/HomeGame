@@ -10,12 +10,12 @@ public class Enemy1 : Entity
     [SerializeField] private D_IdleState idleStateData;
     [SerializeField] private D_MoveState moveStateData;
 
-    public override void start()
+    public override void Start()
     {
-        base.start();
+        base.Start();
 
-        moveState = new E1_MoveState(stateMachine, this, "move", moveStateData, this);
-        idleState = new E1_IdleState(stateMachine, this, "idle", idleStateData, this);
+        moveState = new E1_MoveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new E1_IdleState(this, stateMachine, "idle", idleStateData, this);
 
         stateMachine.Initialize(moveState);
     }
