@@ -11,7 +11,7 @@ public class EnemyState
 
     protected string animBoolName;
 
-    public EnemyState( Entity entity, FiniteStateMachine stateMachine, string animBoolName)
+    public EnemyState(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
     {
         this.stateMachine = stateMachine;
         this.entity = entity;
@@ -22,6 +22,7 @@ public class EnemyState
     {
         startTime = Time.time;
         entity.anim.SetBool(animBoolName, true);
+        DoChecks();
     }
 
     public virtual void Exit()
@@ -35,6 +36,11 @@ public class EnemyState
     }
 
     public virtual void PhysicsUpdate()
+    {
+        DoChecks();
+    }
+
+    public virtual void DoChecks()
     {
 
     }
