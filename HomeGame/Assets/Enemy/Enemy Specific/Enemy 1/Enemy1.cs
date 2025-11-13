@@ -6,16 +6,30 @@ public class Enemy1 : Entity
 {
     public E1_IdleState idleState {  get; private set; }
     public E1_MoveState moveState { get; private set; }
+    public E1_PlayerDetected playerDetectedState { get; private set; }
+    public E1_ChargeState chargeState { get; private set; }
+    public E1_LookForPlayerState lookForPlayerState { get; private set; }
+    public E1_MeleeAttackState meleeAttackState { get; private set; }
 
     [SerializeField] private D_IdleState idleStateData;
     [SerializeField] private D_MoveState moveStateData;
+    [SerializeField] private D_PlayerDetected playerDetectedData;
+    [SerializeField] private D_ChargeState chargeStateData;
+    [SerializeField] private D_LookForPlayer lookForPlayerData;
+    [SerializeField] private D_MeleeAttack meleeAttackData;
 
-    public override void start()
+    [SerializeField] private Transform meleeAttackPosition; 
+
+    public override void Start()
     {
-        base.start();
+        base.Start();
 
-        moveState = new E1_MoveState(stateMachine, this, "move", moveStateData, this);
-        idleState = new E1_IdleState(stateMachine, this, "idle", idleStateData, this);
+        moveState = new E1_MoveState(this, stateMachine, "move", moveStateData, this);
+        idleState = new E1_IdleState(this, stateMachine, "idle", idleStateData, this);
+        playerDetectedState = new E1_PlayerDetected(this, stateMachine, "playerDetected", playerDetectedData, this);
+        chargeState = new E1_ChargeState(this, stateMachine, "charge", chargeStateData, this);
+        lookForPlayerState = new E1_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerData, this);
+        meleeAttackState = new E1_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackData, this);
 
         stateMachine.Initialize(moveState);
     }

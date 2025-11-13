@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class IdleState : EnemyState
 {
-    protected D_IdleState statedata;
+    protected D_IdleState stateData;
 
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
+    protected bool isPlayerInMinAgroRange;
 
     protected float idleTime;
-    public IdleState(FiniteStateMachine statemachine, Entity entity, string animBoolName, D_IdleState statedata) : base(statemachine, entity, animBoolName)
+    public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(entity, stateMachine, animBoolName)
     {
-        this.statedata = statedata;
+        this.stateData = stateData;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
@@ -21,6 +28,7 @@ public class IdleState : EnemyState
 
         entity.SetVelocity(0f);
         isIdleTimeOver = false;
+        
         SetRandomIdleTime();
     }
 
@@ -55,7 +63,7 @@ public class IdleState : EnemyState
     }
 
     private void SetRandomIdleTime()
-    { 
-        idleTime = Random.Range(statedata.minIdleTime, statedata.maxIdleTime);
+    {
+        idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);
     }
 }
