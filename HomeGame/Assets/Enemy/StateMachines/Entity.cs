@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb { get; private set; }
     public Animator anim { get; private set; }
     public GameObject aliveGO { get; private set; }
+    public AnimToStatemachine atsm { get; private set; }
 
     public int facingDirection { get; private set; }
 
@@ -25,14 +26,10 @@ public class Entity : MonoBehaviour
     {
         facingDirection = 1;
 
-        //print(aliveGO);
         aliveGO = transform.Find("Alive").gameObject;
-        //print(aliveGO);
-
         rb = aliveGO.GetComponent<Rigidbody2D>();
-        //print(rb);
         anim = aliveGO.GetComponent<Animator>();
-        //print(anim);
+        atsm = aliveGO.GetComponent<AnimToStatemachine>();
 
         stateMachine = new FiniteStateMachine();
     }
@@ -44,7 +41,6 @@ public class Entity : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        //print(aliveGO);
         stateMachine.currentState.PhysicsUpdate();
     }
 
@@ -73,6 +69,10 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.maxAgroDistance, entityData.whatIsPlayer);
     }
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    }
 
     public virtual void Flip()
     {
@@ -82,10 +82,11 @@ public class Entity : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
-        if (gameObject != null)
-        {
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(entityData.wallCheckDistance * facingDirection * Vector2.right));
             Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance));
-        }
+
+            Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
+            Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAgroDistance), 0.2f);
+            Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAgroDistance), 0.2f);  
     }
 }
