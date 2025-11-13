@@ -9,6 +9,10 @@ public class D_Entity : ScriptableObject
 {
     public float wallCheckDistance = 0.2f;
     public float ledgeCheckDistance = 0.4f;
+    public float closeRangeActionDistance = 1;
+
+    public float minAgroDistance = 2;
+    public float maxAgroDistance = 4;
 
     public float minAgroDistance = 2;
     public float maxAgroDistance = 4;
