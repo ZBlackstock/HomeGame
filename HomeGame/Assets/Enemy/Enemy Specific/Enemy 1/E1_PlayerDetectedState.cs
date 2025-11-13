@@ -33,6 +33,11 @@ public class E1_PlayerDetected : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
         }
+        else if (performCloseRangeAction)
+        {
+            stateMachine.ChangeState(enemy.meleeAttackState);
+        }
+
     }
 
     public override void PhysicsUpdate()
